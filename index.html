@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FileSlicer</title>
+	</head>
+	<body>
+		<h1>FileSlicer</h1>
+		<header>
+			<h2>概説</h2>
+			<p>
+				ライブ配信やオンデマンド配信、有志企画の動画や音楽などはYoutubeを、有志企画の普通のファイルは、Googleドライブを使うとして、問題になるのは、ゲームの公開です。
+				Scratchや、RPGツクールなどは、埋め込むだけなので、技術的なハードルは低く、
+				埋め込みJsはファイルを配信しなくてはいけませんが、それは無料の「Cloudflare Pages」でも十分可能です。
+			</p>
+			<p>
+				Cloudflare Pagesには、①1つのファイルに対する大きさの25MBまでの制限と、②1つのサイトに置けるファイルの個数の20000ファイルまでの制限がありますが、<br>
+				ここで示すように、ファイルを分割することが可能ですので、①は、それで解決でき、<br>
+				サイトを別に作ることが可能ですので、②は、サイトをたくさん作ることで解決できます。
+			</p>
+			<p>しかし、そのサイトに容易にアクセスするためのDNSレコードは、今あるものも含め、1000個か、3500個しか作れませんので、事実上、サイトは、約900～3480個しか作れません。</p>
+			<p>
+				よって、サイト一つの容量の上限は、25×20000=500000MG、即ち、約500GB、また、そのサイトを約900～3480個作れるので、全体で、約450TB以上のデータを保存することが可能です。<br>
+				これだけあれば、おそらく足りるでしょう。
+			</p>
+			<p>
+				ただし、実際使ってみたところ、ファイルを結合する処理はブラウザ上で行う上不安定で、なんども読み込むとうまくいかなくなることがあるので、リロードを挟まず、読み込める巨大なファイルは、合計で2500MG以下にした方がいいと思われます。<br>
+				そもそも、ファイルをざっと見たところ、25MB以上のファイルは、動画ファイルと、圧縮ファイル、実行ファイルぐらいでした。<br>
+				ゲームでの圧縮ファイルや、実行ファイルの使用は禁じますので、問題は動画ファイルですが、演出ぐらいでしか使わないと思うので、あんまり長くはならないと思います。<br>
+				<s>長い動画をバンバン使うなら、映画として出させましょう。</s>
+			</p>
+			<p>
+				なお、レコードは削除することができるので、それ以降サイトが作れなくなるようなことはありません。
+			</p>
+		</header>
+		<main>
+			<div>
+				<h2>ファイルの分割</h2>
+				<label for="natural">変換元ファイル:</label>
+				<input type="file" id="natural">
+				<br>
+				<button type="button" id="b_split">分割する</button>
+				<div>
+					<label>結果:</label><br>
+					<div id="split_result">
+
+					</div> 
+				</div>
+			</div>
+			<br>
+			<div>
+				<h2>ファイルの結合</h2>
+				<label for="sepalated">分割されたファイル:</label>
+				<input type="file" id="sepalated" multiple>
+				<br>
+				<label for="name">分割されたファイルの名前:</label>
+				<input type="text" id="name">
+				<br>
+				<button type="button" id="b_join">復元する</button>
+			</div>
+			<br>
+			<div>
+				<h2>保存されたファイルの読み出し</h2>
+				<label for="name_">保存されたファイルの名前:</label>
+				<input type="text" id="name_" list="name_list">
+				<datalist id="name_list">
+				</datalist>
+				<br>
+				<button type="button" id="b_load">ダウンロードする</button>
+				<br>
+				<button type="button" id="b_play">再生する</button>
+				<br>
+				<label for="progress" id="progress_label">進捗状況: </label>
+				<br>
+				<progress id="progress" max="1" value="0"></progress>
+				<video id="player" controls>
+					...
+				</video>
+			</div>
+			<br>
+		</main>
+	</body>
+	<script src="./main.mjs" type="module"></script>
+</html>
