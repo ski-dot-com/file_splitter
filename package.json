@@ -7,6 +7,7 @@
     "start": "npm run serve",
     "serve": "npx http-server",
     "import": "node --experimental-modules slice.mjs",
+    "build": "node --experimental-modules join.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ski.com",

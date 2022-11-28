@@ -2,7 +2,7 @@ import { slice_file } from "./lib.mjs"
 import * as fs from "fs";
 import * as path from "path";
 import { Blob } from "buffer";
-var res = slice_file(new Blob([fs.readFileSync(path.join(process.argv[2])).buffer]));
+var res = slice_file(new Blob([fs.readFileSync(path.join(path.dirname(process.argv[1]), "raw/",process.argv[2])).buffer]));
 if (res.length != 0) {
     // res[0].arrayBuffer().then(
     //     (val)=>{
